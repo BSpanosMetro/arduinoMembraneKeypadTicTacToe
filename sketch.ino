@@ -16,7 +16,7 @@ char s7 = '_';
 char s8 = '_';
 char s9 = '_';
 
-bool turn = true; //X is true, Y is false
+bool turn = false; //X is true, Y is false
 
 String victoryState = "______"; 
 
@@ -30,8 +30,8 @@ char hexaKeys[ROWS][COLS] = {
   {'7', '8', '9'},
 };
 
-byte rowPins[ROWS] = {7, 6, 5};
-byte colPins[COLS] = {4, 3, 2}; 
+byte rowPins[ROWS] = {4, 3, 2};
+byte colPins[COLS] = {7, 6, 5};
 
 Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
 
@@ -42,20 +42,26 @@ void setup() { // Sets up serial monitor and LED pins
 }
 
 void loop() { // Runs the game of Tic Tac Toe
-  Serial.println (s1+s2+s3); // Prints first row
-  Serial.println (s4+s5+s6); // Prints second row
-  Serial.println (s7+s8+s9); // Prints third row
-  Serial.println (victoryState); // Prints either if someone has won or a break between game boards
   char customKey = customKeypad.getKey(); //Calls keypad
   if (customKey) { //Runs if key is pressed
+    Serial.println (s1);
+    Serial.print (s2);
+    Serial.print (s3);
+    Serial.println (s4);
+    Serial.print (s5);
+    Serial.print (s6);
+    Serial.println (s7);
+    Serial.print (s8);
+    Serial.print (s9);
+    Serial.println (victoryState); // Prints either if someone has won or a break between game boards
     if (turn) { // Checks whose turn it is, see line 19
       turn = false; // Switches the turn
-      digitalWrite(xPin, LOW); // Turns of Red LED
-      digitalWrite(yPin, HIGH); // Turns on Blue LED
+      digitalWrite(xPin, HIGH); // Turns of Red LED
+      digitalWrite(yPin, LOW); // Turns on Blue LED
     } else {
       turn = true;
-      digitalWrite(xPin, HIGH);
-      digitalWrite(yPin, LOW);
+      digitalWrite(xPin, LOW);
+      digitalWrite(yPin, HIGH);
     }
 
 // Code to play a square
